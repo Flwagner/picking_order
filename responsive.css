@@ -1,0 +1,11 @@
+@media (max-width: 850px) {
+
+  .board {
+    width: 806px;
+  }
+  .boardWrapper {
+   overflow-x: auto;
+  }
+
+
+}

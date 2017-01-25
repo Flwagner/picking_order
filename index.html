@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">			
+			<link rel="stylesheet" type="text/css" href="style.css">
+			<link rel="stylesheet" type="text/css" href="responsive.css">
+			<script src="jquery-3.1.1.min.js"></script>
+			<script src="strings.js"></script>
+			<script src="constants.js"></script>
+			<script src="data.js"></script>
+			<script src="animation.js"></script>
+			<script src="functions.js"></script>
+			<script src="ia.js"></script>
+	</head>
+  
+	<body>
+	
+		<div id='overlay' class='overlay'></div>
+		
+		<div id='namePopup' class='popup namePopup'>
+			<div id='namePopupClose' class='close namePopupClose'>&times;</div>
+			<div class='lineWrapper'>
+				<label>Joueur 1 : </label><input id='name1' type='text' />
+			</div>
+			<div class='lineWrapper'>
+				<label>Joueur 2 : </label><input id='name2' type='text' /><label><input type="checkbox" id="checkboxIA" value="checkboxIA">IA</label>
+			</div>			
+			<button id='nameCancel' class='nameCancel' onclick='nameCancel();'>Annuler</button>
+			<button id='nameValidate' class='nameValidate' onclick='nameValidate();'>Valider</button>
+		</div>
+		
+		<div id='infoPopup' class='popup infoPopup'>
+			<div id='infoPopupClose' class='close infoPopupClose'>&times;</div>
+			<div id='infoPopupContent' class='infoPopupContent'></div>
+		</div>
+		
+		<div class='top'>
+			<span class='title'>Pecking order</span>
+			<span id='info' class='info' onclick='showInfo();'>i</span>
+		</div>
+			
+		<div id='attackInfo' class='attackInfo'></div>
+		
+		<div id='boardWrapper' class='boardWrapper'>
+			<table id='board' class='board'>
+				<tr playerId=1 class='playerRow'>
+					<td value=1 position=1 special='tieBreak'>1</td>
+					<td value=2 position=2>2</td> 
+					<td value=3 position=3 special='see'>3</td>
+					<td value=4 position=4>4</td>
+					<td value=5 position=5>5</td> 
+					<td value=6 position=6>6</td>
+					<td value=7 position=7>7</td>
+					<td value=8 position=8 special='double'>8</td>
+					<td value=8 position=9 special='double'>8</td>
+					<td value=9 position=10>9</td>
+					<td value=10 position=11>10</td>
+				</tr>
+				<tr playerId=2 class='playerRow'>
+					<td value=1 position=1 special='tieBreak'>1</td>
+					<td value=2 position=2>2</td> 
+					<td value=3 position=3 special='see'>3</td>
+					<td value=4 position=4>4</td>
+					<td value=5 position=5>5</td> 
+					<td value=6 position=6>6</td>
+					<td value=7 position=7>7</td>
+					<td value=8 position=8 special='double'>8</td>
+					<td value=8 position=9 special='double'>8</td>
+					<td value=9 position=10>9</td>
+					<td value=10 position=11>10</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class='player'>
+			<div id='playerName' class='playerName'></div>
+			<div id='playerCartes' class='playerCartes' onclick='pioche();'></div>
+			<div id='flippedContainer' class='flippedContainer'>
+				<div id='currentCart' class='currentCart'>
+					<div id="cartFront" class="cartFront"></div>
+					<div id="cartBack" class="cartBack"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div id='endPopup' class='popup endPopup'>
+			<div id='endPopupContent' class='endPopupContent'></div>
+			<button id='replay' class='replay' onclick='location.reload();'>Rejouer</button>
+		</div>
+	
+		<script>
+			$(function() {
+					console.log('dom ready');
+					$('.close').click(function(){
+						$(this).closest('.popup').hide();
+						$('#overlay').hide();
+					});
+					$('#infoPopupContent').load('rules.html');
+					refreshPlayerInfo();
+					$('.playerRow td').click(function(){
+						var boardCase = $(this);
+						if(boardCase.closest('.playerRow').hasClass('active')) {
+							dropCarte(boardCase);	
+						}
+						else {
+							see(boardCase);
+						}
+					});
+			});
+		</script>
+	
+	</body>
+  
+</html> 
